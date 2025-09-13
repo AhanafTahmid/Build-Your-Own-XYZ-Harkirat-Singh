@@ -1,6 +1,7 @@
 node_modules
 .env
 .Dist_Store
+.DS_Store
 .vscode
 .idea
 *.log
