@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Data model
+model Game {
+  id        Int     @id @default(autoincrement())
+  pid1      String?
+  pid2      String?
+  boardState String @default("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+  currentTurn String @default("w")
+  gameStatus String @default("ongoing") // ongoing, finished
+  winner    String?
+  moveCount Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  moves     Move[]
+}
+
+model Move {
+  id        Int     @id @default(autoincrement())
+  gid       Int 
+  game      Game    @relation(fields: [gid], references: [id], onDelete: Cascade)
+  from      String
+  to        String
+  piece     String?
+  captured  String?
+  moveNumber Int
+  playerId  String
+  createdAt DateTime @default(now())
+}
