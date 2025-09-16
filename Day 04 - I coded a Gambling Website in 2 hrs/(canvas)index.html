@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canvas Game</title>
+  <title>Plinko Game</title>
   <style>
     canvas {
       background-color: #000;
@@ -34,7 +34,7 @@
     const HEIGHT = 800;
     const ballRadius = 7;
     const obstacleRadius = 4;
-    const gravity = pad(0.2);
+    const gravity = pad(.2);
     const horizontalFriction = 0.4;
     const verticalFriction = 0.8;
     let balls = [];
@@ -73,11 +73,6 @@
       sinks.push({ x, y, width, height });
     }
 
-
-
-
-
-
     class Ball {
       constructor(x, y, radius, color) {
         this.x = x;
@@ -104,6 +99,7 @@
 
         // Collision with obstacles
         obstacles.forEach(obstacle => {
+          //distance between ball center and obstacle center
           const dist = Math.hypot(this.x - obstacle.x, this.y - obstacle.y);
           if (dist < pad(this.radius + obstacle.radius)) {
             // Calculate collision angle

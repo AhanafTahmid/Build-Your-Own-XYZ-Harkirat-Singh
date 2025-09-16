@@ -27,6 +27,7 @@ export function Game() {
             data: 1,
           });
           if (ballManager) {
+            console.log(response.data.point);
             ballManager.addBall(response.data.point);
           }
         }}
