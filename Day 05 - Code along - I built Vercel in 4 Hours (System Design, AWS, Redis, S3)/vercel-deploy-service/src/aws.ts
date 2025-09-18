@@ -1,11 +1,13 @@
 import { S3 } from "aws-sdk";
 import fs from "fs";
 import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
 
 const s3 = new S3({
-    accessKeyId: "7ea9c3f8c7f0f26f0d21c5ce99d1ad6a",
-    secretAccessKey: "b4df203781dd711223ce931a2d7ca269cdbf81bb530de4548474584951b798be",
-    endpoint: "https://e21220f4758c0870ba9c388712d42ef2.r2.cloudflarestorage.com"
+    accessKeyId: process.env.accessKeyId,
+    secretAccessKey: process.env.secretAccessKey,
+    endpoint: process.env.endpoint
 })
 
 // output/asdasd
