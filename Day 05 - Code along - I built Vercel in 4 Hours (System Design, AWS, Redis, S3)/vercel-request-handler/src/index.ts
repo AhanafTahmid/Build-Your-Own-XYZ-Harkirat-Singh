@@ -3,7 +3,7 @@ import { S3 } from "aws-sdk";
 import dotenv from "dotenv";
 dotenv.config();
 console.log("ENVS, heellllo ");
-console.log(process.env.accessKeyId, process.env.secretAccessKey, process.env.endpoint);
+// console.log(process.env.accessKeyId, process.env.secretAccessKey, process.env.endpoint);
 
 const s3 = new S3({
     accessKeyId: process.env.accessKeyId,
@@ -19,10 +19,13 @@ app.get("/*", async (req, res) => {
 
     const id = host.split(".")[0];
     const filePath = req.path;
+    console.log("filePath", filePath);
+    console.log("id", id);
 
     const contents = await s3.getObject({
         Bucket: "vercel",
-        Key: `dist/${id}${filePath}`
+        Key: `dist/${id}/dist${filePath}`
+        //Key: `output/${id}${filePath}`
     }).promise();
     
     const type = filePath.endsWith("html") ? "text/html" : filePath.endsWith("css") ? "text/css" : "application/javascript"
@@ -31,4 +34,6 @@ app.get("/*", async (req, res) => {
     res.send(contents.Body);
 })
 
-app.listen(3001);
+app.listen(3001, () => {
+    console.log("Listening on port 3001");
+})

@@ -18,6 +18,7 @@ app.use(cors())
 app.use(express.json());
 
 app.post("/deploy", async (req, res) => {
+    console.log("Request Body:", req.body);
     const repoUrl = req.body.repoUrl;
     const id = generate(); // asd12
     await simpleGit().clone(repoUrl, path.join(__dirname, `output/${id}`));

@@ -15,10 +15,11 @@ const s3 = new S3({
 // filePath => /Users/harkiratsingh/vercel/dist/output/12312/src/App.jsx
 export const uploadFile = async (fileName: string, localFilePath: string) => {
     const fileContent = fs.readFileSync(localFilePath);
+    //console.log("Uploading file to S3:", fileContent);
     const response = await s3.upload({
         Body: fileContent,
         Bucket: "vercel",
         Key: fileName,
     }).promise();
-    console.log(response);
+    console.log("here is " , response);
 }

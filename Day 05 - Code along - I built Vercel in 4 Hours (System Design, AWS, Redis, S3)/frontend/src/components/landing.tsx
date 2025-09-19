@@ -37,11 +37,13 @@ export function Landing() {
             </div>
             <Button onClick={async () => {
               setUploading(true);
+              console.log("beforeeee");
               const res = await axios.post(`${BACKEND_UPLOAD_URL}/deploy`, {
                 repoUrl: repoUrl
               });
               setUploadId(res.data.id);
               setUploading(false);
+              console.log("Upload ID:", res.data.id);
               const interval = setInterval(async () => {
                 const response = await axios.get(`${BACKEND_UPLOAD_URL}/status?id=${res.data.id}`);
 
@@ -51,7 +53,10 @@ export function Landing() {
                 }
               }, 3000)
             }} disabled={uploadId !== "" || uploading} className="w-full" type="submit">
-              {uploadId ? `Deploying (${uploadId})` : uploading ? "Uploading..." : "Upload"}
+              
+
+              {deployed === true ? "Upload" :
+              uploadId ? `Deploying (${uploadId})` : uploading ? "Uploading..." : "Upload"}
             </Button>
           </div>
         </CardContent>
@@ -68,7 +73,8 @@ export function Landing() {
           </div>
           <br />
           <Button className="w-full" variant="outline">
-            <a href={`http://${uploadId}.10kdevs.com/index.html`} target="_blank">
+            {/* http://shbdm.dev.100xdevs.com:3001/index.html */}
+            <a href={`http://${uploadId}.dev.100xdevs.com:3001/index.html`} target="_blank">
               Visit Website
             </a>
           </Button>

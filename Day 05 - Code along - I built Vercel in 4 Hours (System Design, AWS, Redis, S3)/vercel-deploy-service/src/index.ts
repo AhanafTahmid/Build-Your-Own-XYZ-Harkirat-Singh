@@ -17,10 +17,14 @@ async function main() {
           );
         // @ts-ignore;
         const id = res.element
-        
+        console.log("Received build id:", id);
+
         await downloadS3Folder(`output/${id}`)
+        console.log("Downloaded from S3");
         await buildProject(id);
+        console.log("Build completed");
         copyFinalDist(id);
+        console.log("Copied to S3");
         publisher.hSet("status", id, "deployed")
     }
 }

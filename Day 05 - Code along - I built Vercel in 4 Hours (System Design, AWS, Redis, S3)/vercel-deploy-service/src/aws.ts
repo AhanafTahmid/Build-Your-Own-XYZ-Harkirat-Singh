@@ -44,7 +44,12 @@ export async function downloadS3Folder(prefix: string) {
 }
 
 export function copyFinalDist(id: string) {
-    const folderPath = path.join(__dirname, `output/${id}/dist`);
+    console.log("copying final dist", id);
+    const folderPath = path.join(__dirname, `/output/${id}`);
+    if (!fs.existsSync(folderPath)) {
+        console.error("No dist folder found for build:", folderPath);
+        return;
+    }
     const allFiles = getAllFiles(folderPath);
     allFiles.forEach(file => {
         uploadFile(`dist/${id}/` + file.slice(folderPath.length + 1), file);
@@ -72,5 +77,5 @@ const uploadFile = async (fileName: string, localFilePath: string) => {
         Bucket: "vercel",
         Key: fileName,
     }).promise();
-    console.log(response);
+    //console.log(response);
 }
