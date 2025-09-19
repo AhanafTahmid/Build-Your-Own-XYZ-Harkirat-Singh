@@ -1,6 +1,7 @@
 site: https://vercel.com/
 # Code Along Tutorial: 
-https://projects.100xdevs.com/tracks/ZSQI8YNE0iL6sT1hJpts/vercel-1
+https://projects.100xdevs.com/tracks/ZSQI8YNE0iL6sT1hJpts/vercel-1  
+https://vercel.com/blog/behind-the-scenes-of-vercels-infrastructure
 
 # Tutorial
 for simple html,css,js project don't have to think about deploy, can do upload and push to aws  
