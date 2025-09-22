@@ -70,7 +70,7 @@ export function FileExplorer({ files, onFileSelect }: FileExplorerProps) {
         <FolderTree className="w-5 h-5" />
         File Explorer
       </h2>
-      <div className="space-y-1">
+      <div className="space-y-10">
         {files.map((file, index) => (
           <FileNode
             key={`${file.path}-${index}`}

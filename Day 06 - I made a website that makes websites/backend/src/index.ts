@@ -9,7 +9,7 @@ import cors from "cors";
 import { GoogleGenAI } from "@google/genai";
 
 
-// const anthropic = new Anthropic();
+const anthropic = new Anthropic();
 const ai = new GoogleGenAI({});
 
 const app = express();
@@ -23,7 +23,7 @@ app.post("/template", async (req, res) => {
     model: "gemini-2.5-flash",
     contents: "Return either node or react based on what do you think this project should be. Only return a single word either 'node' or 'react'. Do not return anything extra",
   });
-  //console.log(response.text);
+  console.log(response.text);
 
     // const response = await anthropic.messages.create({
     //     messages: [{
@@ -34,6 +34,7 @@ app.post("/template", async (req, res) => {
     //     system: "Return either node or react based on what do you think this project should be. Only return a single word either 'node' or 'react'. Do not return anything extra"
     // })
 
+    // const answer = (response.content[0] as TextBlock).text;
     const answer = response.text ? response.text.trim() : ""; // react or node
     if (answer == "react") {
         res.json({
@@ -72,7 +73,7 @@ app.post("/chat", async (req, res) => {
     //     system: getSystemPrompt()
     // })
 
-    console.log(response);
+   //console.log(response);
 
     res.json({
         response: response.text
