@@ -1,0 +1,25 @@
+{
+  "name": "build-your-own-xyz---harkirat-singh",
+  "version": "1.0.0",
+  "description": "https://www.youtube.com/playlist?list=PLVKLWop9wWA8rdaNPIsG6r4a6QZClCH-M",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhanafTahmid/Build-Your-Own-XYZ---Harkirat-Singh.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhanafTahmid/Build-Your-Own-XYZ---Harkirat-Singh/issues"
+  },
+  "homepage": "https://github.com/AhanafTahmid/Build-Your-Own-XYZ---Harkirat-Singh#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
