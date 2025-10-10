@@ -2,6 +2,7 @@ site: https://www.gather.town/
 https://zep.us/en  
 
 # Tutorial
+https://www.prismabuilder.io/ - for prisma visalizer
 
 TDD - test driven development  
 ws is bidirectional communication
