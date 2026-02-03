@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"] ?? "";
+    console.log("authHeader---", authHeader);
 
     try {
         const decoded = jwt.verify(authHeader, JWT_SECRET);

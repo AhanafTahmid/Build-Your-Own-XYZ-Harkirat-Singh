@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  provider     Provider
+  walletAddress String? @unique
+  streams      Stream[] @relation("user")
+  upvotes      Upvote[]
+  addedStreams Stream[] @relation("addedBy")
+  hostedSpaces  Space[]  @relation("hostedBy")
+  payments     Payment[]
+}
+
+model Stream {
+  id            String         @id @default(uuid())
+  type          StreamType
+  url           String
+  extractedId   String
+  title         String         @default("")
+  smallImg      String         @default("")
+  bigImg        String         @default("")
+  active        Boolean        @default(true)
+  played        Boolean        @default(false)
+  playedTs      DateTime?
+  createAt      DateTime       @default(now())
+  upvotes       Upvote[]
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], name: "user")
+  currentStream CurrentStream?
+  addedBy       String
+  addedByUser   User           @relation("addedBy", fields: [addedBy], references: [id])
+  spaceId      String?
+  space        Space?      @relation("spaceStreams", fields: [spaceId], references: [id],onDelete: Cascade)
+  payment      Payment?
+  priorityAmount Decimal?  @default(0)  @db.Decimal(10, 2)
+}
+
+model CurrentStream {
+  id            String @id @default(uuid())
+  userId       String  
+  streamId String? @unique
+  stream   Stream? @relation(fields: [streamId], references: [id])
+  spaceId     String? @unique
+  space    Space?    @relation(fields: [spaceId], references: [id],onDelete: Cascade)
+}
+
+model Upvote {
+  id       String @id @default(uuid())
+  userId   String
+  streamId String
+  user     User   @relation(fields: [userId], references: [id])
+  stream   Stream @relation(fields: [streamId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, streamId])
+}
+model Space {
+  id            String      @id @default(uuid())
+  name          String
+  streams        Stream[]     @relation("spaceStreams")
+  hostId        String
+  host          User        @relation("hostedBy", fields: [hostId], references: [id])
+  isActive      Boolean     @default(true)
+  currentStream CurrentStream?
+}
+enum StreamType {
+  Spotify
+  Youtube
+}
+
+enum Provider {
+  Google
+}
+
+model Payment {
+  id              String    @id @default(uuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  streamId        String    @unique
+  stream          Stream    @relation(fields: [streamId], references: [id], onDelete: Cascade)
+  signature       String    @unique
+  amount          Decimal   @db.Decimal(10, 2)
+  walletAddress   String
+  status          PaymentStatus @default(PENDING)
+  createdAt       DateTime  @default(now())
+  verifiedAt      DateTime?
+  
+  @@index([userId])
+  @@index([signature])
+}
+
+enum PaymentStatus {
+  PENDING
+  VERIFIED
+  FAILED
+}
+
+
+
+
+model SongMetadata {
+  id          String   @id @default(uuid())
+  extractedId String   @unique
+  title       String
+  artist      String?
+  duration    Int?
+  tags        String[] @default([])
+  embeddings  Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SpaceListeningHistory {
+  id          String   @id @default(uuid())
+  spaceId     String
+  extractedId String
+  playCount   Int      @default(0)
+  skipCount   Int      @default(0)
+  lastPlayed  DateTime?
+  @@unique([spaceId, extractedId], map: "space_extracted_unique")
+}
+ 
+model UserSongPreference {
+  id          String   @id @default(uuid())
+  userId      String
+  extractedId String
+  upvotes     Int      @default(0)
+  downvotes   Int      @default(0)
+  lastSeen    DateTime @default(now())
+  @@unique([userId, extractedId])
+}

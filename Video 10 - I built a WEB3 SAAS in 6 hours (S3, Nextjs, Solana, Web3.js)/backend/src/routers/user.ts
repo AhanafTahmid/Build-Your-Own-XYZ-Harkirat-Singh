@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import nacl from "tweetnacl";
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
@@ -8,6 +10,8 @@ import { authMiddleware } from "../middleware";
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post'
 import { createTaskInput } from "../types";
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
+
+console.log("RPC HELLO", process.env.RPC_URL);
 
 const connection = new Connection(process.env.RPC_URL ?? "");
 
@@ -38,7 +42,7 @@ prismaClient.$transaction(
     }
 )
 
-router.get("/task", authMiddleware, async (req, res) => {
+router.get("/task", async (req, res) => {
     // @ts-ignore
     const taskId: string = req.query.taskId;
     // @ts-ignore
@@ -97,7 +101,7 @@ router.get("/task", authMiddleware, async (req, res) => {
 
 })
 
-router.post("/task", authMiddleware, async (req, res) => {
+router.post("/task", async (req, res) => {
     //@ts-ignore
     const userId = req.userId
     // validate the inputs from the user;
@@ -174,13 +178,15 @@ router.post("/task", authMiddleware, async (req, res) => {
 
 })
 
-router.get("/presignedUrl", authMiddleware, async (req, res) => {
+router.get("/presignedUrl", async (req, res) => {
     // @ts-ignore
     const userId = req.userId;
+    console.log("userId - ",userId);
+    console.log(process.env.ACCESS_KEY_ID);
 
     const { url, fields } = await createPresignedPost(s3Client, {
-        Bucket: 'hkirat-cms',
-        Key: `fiver/${userId}/${Math.random()}/image.jpg`,
+        Bucket: 'web31',
+        Key: `fiverr/${userId}/${Math.random()}/image.jpg`,
         Conditions: [
           ['content-length-range', 0, 5 * 1024 * 1024] // 5 MB max
         ],
@@ -196,6 +202,8 @@ router.get("/presignedUrl", authMiddleware, async (req, res) => {
 
 router.post("/signin", async(req, res) => {
     const { publicKey, signature } = req.body;
+    console.log( "pub - " , publicKey )
+    console.log( "signature- ", signature )
     const message = new TextEncoder().encode("Sign into mechanical turks");
 
     const result = nacl.sign.detached.verify(
