@@ -89,7 +89,7 @@ function WebsiteCard({ website }: { website: ProcessedWebsite }) {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center space-x-4">
-          <StatusCircle status={website.status} />
+          <StatusCircle status={website.status}/>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white">{website.url}</h3>
           </div>

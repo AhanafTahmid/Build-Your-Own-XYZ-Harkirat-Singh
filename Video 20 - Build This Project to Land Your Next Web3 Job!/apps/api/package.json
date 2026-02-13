@@ -2,9 +2,6 @@
   "name": "api",
   "module": "index.ts",
   "type": "module",
-  "scripts": {
-    "dev": "tsc -b && node dist/index.js"
-  },
   "devDependencies": {
     "@types/bun": "latest"
   },
