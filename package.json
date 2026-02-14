@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/AhanafTahmid/Build-Your-Own-XYZ---Harkirat-Singh#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "turbo": "^2.8.8"
   }
 }

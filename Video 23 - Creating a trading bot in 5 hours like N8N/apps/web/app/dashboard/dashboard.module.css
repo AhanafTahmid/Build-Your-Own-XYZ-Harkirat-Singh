@@ -1,0 +1,135 @@
+.container {
+  padding: 2rem 3rem;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.createButton {
+  padding: 0.5rem 1.5rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.createButton:hover {
+  background: #333;
+}
+
+.workflowList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.workflowCard {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.workflowCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.workflowInfo {
+  flex: 1;
+}
+
+.workflowName {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.workflowMeta {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.workflowActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actionButton {
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  color: #000;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.actionButton:hover {
+  background: #f5f5f5;
+  border-color: #d5d5d5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: #0a0a0a;
+  }
+
+  .title {
+    color: #fff;
+  }
+
+  .createButton {
+    background: #fff;
+    color: #000;
+  }
+
+  .createButton:hover {
+    background: #e5e5e5;
+  }
+
+  .workflowCard {
+    background: #1a1a1a;
+    border-color: #333;
+  }
+
+  .workflowName {
+    color: #fff;
+  }
+
+  .workflowMeta {
+    color: #999;
+  }
+
+  .actionButton {
+    color: #fff;
+    border-color: #333;
+  }
+
+  .actionButton:hover {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+}
