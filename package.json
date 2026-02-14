@@ -21,6 +21,7 @@
   "homepage": "https://github.com/AhanafTahmid/Build-Your-Own-XYZ---Harkirat-Singh#readme",
   "dependencies": {
     "express": "^5.1.0",
+    "shamirs-secret-sharing": "^2.0.1",
     "turbo": "^2.8.8"
   }
 }
